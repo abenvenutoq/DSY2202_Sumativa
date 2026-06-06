@@ -249,7 +249,7 @@ function actualizarNavbar(){
                             
                             <li><a class="dropdown-item" href="admin_panel.html">Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
                             
                         </ul>
                     </li>
@@ -276,7 +276,7 @@ function actualizarNavbar(){
                 <li><a class="dropdown-item" href="mi_perfil.html">Mi Perfil</a></li>
                 <li><a class="dropdown-item" href="mis_reservas.html">Mis Reservas</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" ref="" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
                 
             </ul>
         </li>
