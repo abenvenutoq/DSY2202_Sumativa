@@ -65,3 +65,24 @@ footer {
     background: linear-gradient(135deg, #1e3c72 0%, #122546 100%);
     transform: translateY(-1px);
 }
+
+/*ESTILOS FLOTA AUTOS*/
+.header-flota {
+    background: linear-gradient(135deg, #2cafe3 0%, #2a5298 100%) !important;
+}
+
+.filtros-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: sticky;
+    top: 100px; /* Para que baje junto con el scroll */
+    z-index: 10;
+}
+
+.car-card.no-disponible {
+    opacity: 0.75;
+}
+
+img.card-img-top.no-disponible {
+    filter: grayscale(100%);
+}

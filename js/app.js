@@ -6,28 +6,28 @@ const APP_AUTOS = "bequianrent_autos";
 
 const ADMIN_DEFAULT = {
     nombre: "Admin",
-    correo: "administracion@bequianrent.cl",
-    password: "*Pass123",
+    correo: "admin@admin.cl",
+    password: "qwerty123",
     rol: "admin"
 }
 
 const USER_DEFAULT = {
     nombre: "Angelo",
-    correo: "angelobenvenutoq@gmail.com",
-    password: "desk1984",
+    correo: "cliente@cliente.cl",
+    password: "qwerty123",
     rol: "cliente"
 }
 
 const VEHICULOS = [
     // --- TOYOTA (4) ---
-    { id: 1, marca: "Toyota", modelo: "Corolla", tipo: "Sedán", anio: 2024, precio: 35000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "15 km/l", imagen: "img/autos/toyota_corolla.jpg" },
-    { id: 2, marca: "Toyota", modelo: "Yaris", tipo: "Sedán", anio: 2023, precio: 28000, disponible: true, transmision: "Manual", pasajeros: 5, rendimiento: "17 km/l", imagen: "img/autos/toyota_yaris.jpg" },
+    { id: 1, marca: "Toyota", modelo: "Corolla", tipo: "Sedán", anio: 2024, precio: 35000, disponible: false, transmision: "Automática", pasajeros: 5, rendimiento: "15 km/l", imagen: "img/autos/toyota_corolla.jpg" },
+    { id: 2, marca: "Toyota", modelo: "Yaris", tipo: "Sedán", anio: 2023, precio: 28000, disponible: false, transmision: "Manual", pasajeros: 5, rendimiento: "17 km/l", imagen: "img/autos/toyota_yaris.jpg" },
     { id: 3, marca: "Toyota", modelo: "Yaris HB", tipo: "Hatchback", anio: 2024, precio: 29000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "16.5 km/l", imagen: "img/autos/toyota_yaris_hb.jpg" },
     { id: 4, marca: "Toyota", modelo: "Camry", tipo: "Sedán", anio: 2025, precio: 50000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "14 km/l", imagen: "img/autos/toyota_camry.jpg" },
 
     // --- VOLKSWAGEN (4) ---
-    { id: 5, marca: "Volkswagen", modelo: "Golf", tipo: "Hatchback", anio: 2023, precio: 32000, disponible: true, transmision: "Manual", pasajeros: 5, rendimiento: "16 km/l", imagen: "img/autos/vw_golf.jpg" },
-    { id: 6, marca: "Volkswagen", modelo: "Polo", tipo: "Hatchback", anio: 2024, precio: 27000, disponible: true, transmision: "Manual", pasajeros: 5, rendimiento: "18 km/l", imagen: "img/autos/vw_polo.jpg" },
+    { id: 5, marca: "Volkswagen", modelo: "Golf", tipo: "Hatchback", anio: 2023, precio: 32000, disponible: false, transmision: "Manual", pasajeros: 5, rendimiento: "16 km/l", imagen: "img/autos/vw_golf.jpg" },
+    { id: 6, marca: "Volkswagen", modelo: "Polo", tipo: "Hatchback", anio: 2024, precio: 27000, disponible: false, transmision: "Manual", pasajeros: 5, rendimiento: "18 km/l", imagen: "img/autos/vw_polo.jpg" },
     { id: 7, marca: "Volkswagen", modelo: "Virtus", tipo: "Sedán", anio: 2024, precio: 30000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "15.5 km/l", imagen: "img/autos/vw_virtus.jpg" },
     { id: 8, marca: "Volkswagen", modelo: "Jetta", tipo: "Sedán", anio: 2025, precio: 42000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "14.8 km/l", imagen: "img/autos/vw_jetta.jpg" },
 
@@ -249,7 +249,7 @@ function actualizarNavbar(){
                             
                             <li><a class="dropdown-item" href="admin_panel.html">Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout">Cerrar Sesión</a></li>
+                            <li><a class="dropdown-item text-danger" href="" onclick="cerrarSesion()">Cerrar Sesión</a></li>
                             
                         </ul>
                     </li>
@@ -276,7 +276,7 @@ function actualizarNavbar(){
                 <li><a class="dropdown-item" href="mi_perfil.html">Mi Perfil</a></li>
                 <li><a class="dropdown-item" href="mis_reservas.html">Mis Reservas</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" id="btn-logout">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item text-danger" ref="" onclick="cerrarSesion()">Cerrar Sesión</a></li>
                 
             </ul>
         </li>
@@ -287,7 +287,10 @@ function actualizarNavbar(){
 
 }
 
-
+function cerrarSesion(){
+    sessionStorage.removeItem(APP_SESION);
+    window.location.href = "login.html";
+}
 
 //Evento al cargar pagina, cargamos datos
 document.addEventListener("DOMContentLoaded", function () {
