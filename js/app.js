@@ -11,11 +11,18 @@ const ADMIN_DEFAULT = {
     rol: "admin"
 }
 
+const USER_DEFAULT = {
+    nombre: "Angelo",
+    correo: "angelobenvenutoq@gmail.com",
+    password: "desk1984",
+    rol: "cliente"
+}
+
 const VEHICULOS = [
     // --- TOYOTA (4) ---
     { id: 1, marca: "Toyota", modelo: "Corolla", tipo: "Sedán", anio: 2024, precio: 35000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "15 km/l", imagen: "img/autos/toyota_corolla.jpg" },
     { id: 2, marca: "Toyota", modelo: "Yaris", tipo: "Sedán", anio: 2023, precio: 28000, disponible: true, transmision: "Manual", pasajeros: 5, rendimiento: "17 km/l", imagen: "img/autos/toyota_yaris.jpg" },
-    { id: 3, marca: "Toyota", modelo: "Yaris HB", tipo: "Hatchback", anio: 2024, precio: 29000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "16.5 km/l", imagen: "img/autos/yaris_hb.jpg" },
+    { id: 3, marca: "Toyota", modelo: "Yaris HB", tipo: "Hatchback", anio: 2024, precio: 29000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "16.5 km/l", imagen: "img/autos/toyota_yaris_hb.jpg" },
     { id: 4, marca: "Toyota", modelo: "Camry", tipo: "Sedán", anio: 2025, precio: 50000, disponible: true, transmision: "Automática", pasajeros: 5, rendimiento: "14 km/l", imagen: "img/autos/toyota_camry.jpg" },
 
     // --- VOLKSWAGEN (4) ---
@@ -36,9 +43,15 @@ function initApp(){
     let usuarios = getUsuario();
 
     const existeAdmin = usuarios.some(usuario => usuario.correo === ADMIN_DEFAULT.correo);
+    const existeUser = usuarios.some(usuario => usuario.correo === USER_DEFAULT.correo);
 
     if(!existeAdmin){
         usuarios.push(ADMIN_DEFAULT);
+        saveUsuarios(usuarios);
+    }
+
+    if(!existeUser){
+        usuarios.push(USER_DEFAULT);
         saveUsuarios(usuarios);
     }
 
@@ -47,18 +60,11 @@ function initApp(){
     }
 
     let vehiculos = getVehiculos();
-
-    const existeVehiculos = vehiculos.some(vehiculo => vehiculo.id === VEHICULOS.id);
-
-    if(!existeVehiculos){
-        vehiculos.push(VEHICULOS);
-        saveVehiculos(vehiculos);
+    
+    if(vehiculos.length === 0){
+        // Si no hay autos guardados, guardamos la constante VEHICULOS directamente
+        saveVehiculos(VEHICULOS); 
     }
-
-    if(!localStorage.getItem(APP_AUTOS)){
-        localStorage.setItem(APP_AUTOS, JSON.stringify([]));
-    }
-
 
 }
 
@@ -191,9 +197,102 @@ function validDireccion(direccion){
 }
 
 
+//Funcion para actualizar el menu (Navbar)
+function actualizarNavbar(){
+    const menu = document.getElementById("menuNavegacion");
+
+    if(!menu) return;
+
+    const sesion = getSesion();
+
+    if(!sesion || !sesion.loged) {
+
+        menu.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ver_autos.html">Nuestra Flota</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="user-name-nav">Mi Cuenta</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="login.html">Iniciar Sesión</a></li>
+                            <li><a class="dropdown-item" href="registro_clientes.html">Registrarse</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+        `;
+        return;
+    }
+
+    if(sesion.rol === "admin") {
+
+        menu.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ver_autos.html">Nuestra Flota</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="user-name-nav">🔴${sesion.nombre}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="admin_panel.html">Admin Panel</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="btn-logout">Cerrar Sesión</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+        `;
+        return;
+    }
+
+    menu.innerHTML = `
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="ver_autos.html">Nuestra Flota</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span id="user-name-nav">🔵${sesion.nombre}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                
+                <li><a class="dropdown-item" href="mi_perfil.html">Mi Perfil</a></li>
+                <li><a class="dropdown-item" href="mis_reservas.html">Mis Reservas</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#" id="btn-logout">Cerrar Sesión</a></li>
+                
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contacto</a>
+        </li>
+    `;
+
+}
+
+
+
 //Evento al cargar pagina, cargamos datos
 document.addEventListener("DOMContentLoaded", function () {
   initApp();
+  actualizarNavbar();
 });
 
 

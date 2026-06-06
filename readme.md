@@ -43,8 +43,13 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
 
 ## Credencial de Administrador default para pruebas
 
-correo: administracion@bequianrent.cl
-contraseña: *Pass123
+correo: admin@admin.cl
+contraseña: qwerty123
+
+## Credenciales de Usuario default para pruebas
+
+correo: cliente@cliente.cl
+contraseña: qwerty123
 
 
 ## Necesito 

@@ -7,8 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const autosData = JSON.parse(localStorage.getItem(APP_AUTOS)) || [];
-    const autosDestacados = autosData.filter(auto => auto.id === 1 || auto.id === 5 || auto.id === 9);
-    const autosAMostrar = autosDestacados.length === 3 ? autosDestacados : autosData.slice(0, 3);
+
+    const autosDisponibles = autosData.filter(auto => auto.disponible === true);
+
+    const autosMezclados = [...autosDisponibles].sort(() => 0.5 - Math.random());
+    
+    const autosAMostrar = autosMezclados.slice(0, 3);
+
     const contenedorDestacados = document.getElementById('vehiculos-destacados');
 
     if (contenedorDestacados) {
@@ -50,3 +55,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
