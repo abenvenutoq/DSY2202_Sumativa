@@ -119,26 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     })
 
-    // Función para mostrar/ocultar contraseña al mantener presionado el "ojito"
-    function configurarOjito(idInput, idOjito) {
-        const input = document.getElementById(idInput);
-        const ojito = document.getElementById(idOjito);
-
-        const mostrarPassword = () => input.type = "text";
-        const ocultarPassword = () => input.type = "password";
-
-        ojito.addEventListener("mousedown", mostrarPassword);
-        ojito.addEventListener("mouseup", ocultarPassword);
-        ojito.addEventListener("mouseleave", ocultarPassword);
-
-        ojito.addEventListener("touchstart", function(e) {
-            e.preventDefault();
-            mostrarPassword();
-        });
-
-        ojito.addEventListener("touchend", ocultarPassword);
-    }
-
+    // llamamos funciones para ver y ocultar contraseña
     configurarOjito("password", "ojo-password");
     configurarOjito("confirmPassword", "ojo-confirmPassword");
 

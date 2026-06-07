@@ -8,6 +8,7 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
 - login.html
 - registro.html
 - mi_perfil.html
+- editar_perfil.html (Creado nuevo formulario)
 - recovery.html (Eliminado, se crea modal en login.html)
 - ver_autos.html
 - mis_reservas.html
@@ -34,6 +35,16 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
     - correo (Debe existir)
     - contraseña nueva (misma validación que registro)
     - repetir contraseña (identica a contraseña nueva)
+
+- editar_perfil
+    - nombre (Obligatorio, distinto de null o espacio vacío)
+    - apellido (Obligatorio, distinto de null o espacio vacío)
+    - rut (No se puede editar)
+    - correo (No se puede editar)
+    - teléfono (obligatorio, regex 9 digitos)
+    - contraseña (Obligatorio, 1 mayus, 1 simbolo especial, entre 8 y 16 caracteres)
+    - repetir contraseña (Obligario e identica a contraseña)
+    - dirección (Opcional, distinto de espacio en blanco)
 
 ## Roles principales
 

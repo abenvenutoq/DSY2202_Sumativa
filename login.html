@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <div class="bg-primary text-white py-4 mb-4 text-center header-flota">
+    <div class="bg-primary text-white py-4 mb-4 text-center header-global">
         <h2 class="fw-bold">Bienvenido de  nuevo!</h2>
         <p class="text-white">Ingresa a tu cuenta de BequianRent</p>
     </div>
@@ -60,12 +60,18 @@
                             </div>
 
                             <div class="mb-4">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
                                     <label for="login-password" class="form-label fw-semibold mb-0">Contraseña</label>
                                     <a href="#" class="text-decoration-underline" onclick="abrirModalRecuperar()">¿Olvidaste tu contraseña?</a>
                                 </div>
-                                <input type="password" class="form-control form-control-lg mt-2" id="login-password" placeholder="••••••••" required>
-                                <div class="invalid-feedback">Por favor ingresa tu contraseña.</div>
+                                
+                                <div class="input-group input-group-lg">
+                                    <input type="password" class="form-control" id="login-password" placeholder="••••••••" required>
+                                    <span class="input-group-text user-select-none" id="ojo-login-password" style="cursor: pointer;">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                    <div class="invalid-feedback">Por favor ingresa tu contraseña.</div>
+                                </div>
                             </div>
 
                             <div class="mb-4 form-check">

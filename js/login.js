@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const txtPassword = document.getElementById("login-password");
     const alertError = document.getElementById("login-error");
 
-    
     if (formLogin && txtCorreo && txtPassword && alertError) {
 
         // Quitamos estilo error al escribir en los campos
@@ -39,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Quitamos estilos de error al escribir en los campos del modal de recuperación
         const inputsModal = ['recuperar-correo', 'recuperar-password', 'recuperar-confirmPassword'];
+
         inputsModal.forEach(id => {
             const input = document.getElementById(id);
             if (input) {
@@ -175,29 +175,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Función de los ojitos de contraseña
-        function configurarOjitoRecuperar(idInput, idOjito) {
-            const input = document.getElementById(idInput);
-            const ojito = document.getElementById(idOjito);
-            if(!input || !ojito) return;
-            
-            const mostrarPass = () => input.type = "text";
-            const ocultarPass = () => input.type = "password";
-
-            ojito.addEventListener("mousedown", mostrarPass);
-            ojito.addEventListener("mouseup", ocultarPass);
-            ojito.addEventListener("mouseleave", ocultarPass);
-            ojito.addEventListener("touchstart", function(e) { 
-                e.preventDefault(); 
-                mostrarPass(); 
-            });
-            ojito.addEventListener("touchend", ocultarPass);
-        }
-
-        configurarOjitoRecuperar("recuperar-password", "ojo-recup-pass");
-        configurarOjitoRecuperar("recuperar-confirmPassword", "ojo-recup-confirm");
+        // llamamos funciones para ver y ocultar contraseña
+        configurarOjito("recuperar-password", "ojo-recup-pass");
+        configurarOjito("recuperar-confirmPassword", "ojo-recup-confirm");
+        
     }
-
 
     // Por alguna razon al cerrar el Modal me da una advertencia
     // Sinceramente no se como este evento logra solucionarlo, pero lo encontré en StackOverflow
@@ -222,5 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    // llamamos funciones para ver y ocultar contraseña
+    configurarOjito("login-password", "ojo-login-password");
 
 });

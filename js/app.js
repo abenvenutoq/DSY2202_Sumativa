@@ -127,6 +127,7 @@ function closeSesion(){
 
 // PROTECCION DE PAGINAS
 function protegerPaginas(rolesPermitidos){
+
     const sesion = getSesion();
 
     if(!sesion || !sesion.loged){
@@ -138,7 +139,7 @@ function protegerPaginas(rolesPermitidos){
         if(sesion.rol === "admin"){
             window.location.href = "admin_panel.html";
         }else {
-            window.location.href = "mis_reservas.html";
+            window.location.href = "mi_perfil.html";
         }
 
         return null;
@@ -255,6 +256,7 @@ function actualizarNavbar(){
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             
+                            <li><a class="dropdown-item" href="mi_perfil.html">Mi Perfil</a></li>
                             <li><a class="dropdown-item" href="admin_panel.html">Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
@@ -327,11 +329,38 @@ function marcarValido(idInput, idError){
     }
 }
 
+// Función para mostrar/ocultar contraseña al mantener presionado el "ojito"
+function configurarOjito(idInput, idOjito) {
+    const input = document.getElementById(idInput);
+    const ojito = document.getElementById(idOjito);
+
+    // Si no existe el input no hace nada, evita errores.
+    if (!input || !ojito) {
+        return; 
+    }
+
+    const mostrarPassword = () => input.type = "text";
+    const ocultarPassword = () => input.type = "password";
+
+    ojito.addEventListener("mousedown", mostrarPassword);
+    ojito.addEventListener("mouseup", ocultarPassword);
+    ojito.addEventListener("mouseleave", ocultarPassword);
+
+    ojito.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        mostrarPassword();
+    });
+
+    ojito.addEventListener("touchend", ocultarPassword);
+}
+
 //Evento al cargar pagina, cargamos datos
 document.addEventListener("DOMContentLoaded", function () {
   initApp();
   actualizarNavbar();
 });
+
+
 
 
 
