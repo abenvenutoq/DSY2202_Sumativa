@@ -251,7 +251,7 @@ function actualizarNavbar(){
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="user-name-nav">🔴${sesion.nombre}</span>
+                            <span id="user-name-nav"><i class="fa-solid fa-user-gear" style="color: rgb(255, 0, 0);"></i> ${sesion.nombre}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             
@@ -277,7 +277,7 @@ function actualizarNavbar(){
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span id="user-name-nav">🔵${sesion.nombre}</span>
+                <span id="user-name-nav"><i class="fa-solid fa-user" style="color: rgb(116, 192, 252);"></i> ${sesion.nombre}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 

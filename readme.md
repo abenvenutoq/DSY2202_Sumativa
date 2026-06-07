@@ -8,7 +8,7 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
 - login.html
 - registro.html
 - mi_perfil.html
-- recovery.html
+- recovery.html (Eliminado, se crea modal en login.html)
 - ver_autos.html
 - mis_reservas.html
 - admin_panel.html
