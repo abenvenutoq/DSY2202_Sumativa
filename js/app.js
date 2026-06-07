@@ -5,15 +5,23 @@ const APP_AUTOS = "bequianrent_autos";
 
 
 const ADMIN_DEFAULT = {
-    nombre: "Admin",
+    nombre: "Angelo",
+    apellido: "Benvenuto",
+    rut: "15940700-4",
     correo: "admin@admin.cl",
+    telefono: "963083858",
+    direccion: "Av. Maria Elena 370",
     password: "qwerty123",
     rol: "admin"
 }
 
 const USER_DEFAULT = {
-    nombre: "Angelo",
+    nombre: "Maria",
+    apellido: "Quilobran",
+    rut: "9843565-4",
     correo: "cliente@cliente.cl",
+    telefono: "987654321",
+    direccion: "Av. Maria Elena 370",
     password: "qwerty123",
     rol: "cliente"
 }
@@ -221,7 +229,7 @@ function actualizarNavbar(){
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             
                             <li><a class="dropdown-item" href="login.html">Iniciar Sesión</a></li>
-                            <li><a class="dropdown-item" href="registro_clientes.html">Registrarse</a></li>
+                            <li><a class="dropdown-item" href="registro.html">Registrarse</a></li>
                             
                         </ul>
                     </li>
@@ -286,10 +294,37 @@ function actualizarNavbar(){
     `;
 
 }
-
+// Funcion para cerrar sesion, eliminamos la sesion del sessionStorage y redirigimos al login
 function cerrarSesion(){
     sessionStorage.removeItem(APP_SESION);
     window.location.href = "login.html";
+}
+
+
+// Funcion para validar el formulario de registro, se llama desde el evento submit del formulario 
+function marcarInvalido(idInput, idNombre, mensaje){
+
+    const campo = document.getElementById(idInput);
+    const error = document.getElementById(`${idInput}-error`);
+
+    campo.classList.add("is-invalid");
+    campo.classList.remove("is-valid");
+    
+    if (error) {
+        error.innerHTML = mensaje;
+    }
+}
+
+function marcarValido(idInput, idError){
+
+    const campo = document.getElementById(idInput);
+    const error = document.getElementById(`${idInput}-error`);
+    campo.classList.remove("is-invalid");
+    campo.classList.add("is-valid");
+
+    if (error) {
+        error.innerHTML = "";
+    }
 }
 
 //Evento al cargar pagina, cargamos datos
