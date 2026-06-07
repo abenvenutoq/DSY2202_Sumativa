@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div>
                             <span class="badge ${tipoBadgeColor} mb-2">${auto.tipo}</span>
                             <h5 class="card-title">${auto.marca} ${auto.modelo}</h5>
-                            <p class="card-text text-muted small">Excelente rendimiento y comodidad para tus viajes en la ciudad o carretera.</p>
+                            <p class="card-text text-muted small">${auto.descripcion}</p>
                         </div>
-                        
+                        <hr>
                         <ul class="list-unstyled mb-4 mt-auto">
-                            <li>🛣️ Rinde: ${auto.rendimiento}</li>
-                            <li>⚙️ Transmisión: ${auto.transmision}</li>
-                            <li>👥 Pasajeros: ${auto.pasajeros}</li>
-                            <li>🕧 Año: ${auto.anio}</li>
+                            <li><i class="fa-solid fa-route"></i> Rinde: ${auto.rendimiento}</li>
+                            <li><i class="fa-solid fa-gear"></i> Transmisión: ${auto.transmision}</li>
+                            <li><i class="fa-solid fa-user-group"></i> Pasajeros: ${auto.pasajeros}</li>
+                            <li><i class="fa-solid fa-clock-rotate-left"></i> Año: ${auto.anio}</li>
                         </ul>
                         
                         <div class="d-flex justify-content-between align-items-center border-top pt-3">
