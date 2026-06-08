@@ -40,16 +40,17 @@
         <div class="row">
             
             <div class="col-md-3 mb-4">
-                <div class="card shadow-sm border-0">
-                    <div class="card-header bg-secondary text-white py-3">
-                        <h5 class="mb-0 fw-semibold text-center"><i class="fa-solid fa-gauge me-2"></i>Admin Panel</h5>
-                    </div>
-                    <div class="list-group list-group-flush" id="admin-sidebar">
-                        <button class="list-group-item list-group-item-action active d-flex align-items-center" id="btn-usuarios" onclick="cambiarVista('usuarios')">
-                            <i class="fa-solid fa-users me-3 fs-5"></i> Usuarios Registrados
+                <div class="card shadow-sm border-0 p-3 bg-white mb-4" style="border-radius: 10px;">
+                    <div class="d-flex flex-column gap-2">
+                        <button class="btn btn-light w-100 text-start fw-semibold" id="btn-usuarios" onclick="cambiarVista('usuarios')">
+                            <i class="fa-solid fa-users me-2"></i>Usuarios Registrados
                         </button>
-                        <button class="list-group-item list-group-item-action d-flex align-items-center" id="btn-reservas" onclick="cambiarVista('reservas')">
-                            <i class="fa-solid fa-calendar-check me-3 fs-5"></i> Reservas Realizadas
+                        <button class="btn btn-light w-100 text-start fw-semibold" id="btn-reservas" onclick="cambiarVista('reservas')">
+                            <i class="fa-solid fa-calendar-days me-2"></i>Reservas Realizadas
+                        </button>
+                        
+                        <button class="btn btn-light w-100 text-start fw-semibold" id="btn-vehiculos" onclick="cambiarVista('vehiculos')">
+                            <i class="fa-solid fa-car me-2"></i>Vehículos en Flota
                         </button>
                     </div>
                 </div>

@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function cambiarVista(vista) {
     const btnUsuarios = document.getElementById("btn-usuarios");
     const btnReservas = document.getElementById("btn-reservas");
+    const btnVehiculos = document.getElementById("btn-vehiculos");
     const panelTitulo = document.getElementById("panel-titulo");
 
     // Limpiar clases activas del submenú
     btnUsuarios.classList.remove("active");
     btnReservas.classList.remove("active");
+    if (btnVehiculos) btnVehiculos.classList.remove("active");
 
     if (vista === 'usuarios') {
         btnUsuarios.classList.add("active");
@@ -28,6 +30,10 @@ function cambiarVista(vista) {
         btnReservas.classList.add("active");
         panelTitulo.textContent = "Reservas Realizadas";
         renderizarReservas();
+    } else if (vista === 'vehiculos') {
+        if (btnVehiculos) btnVehiculos.classList.add("active");
+        panelTitulo.textContent = "Inventario de Vehículos";
+        renderizarVehiculos();
     }
 }
 
@@ -226,4 +232,154 @@ function editarReserva(idReserva) {
     
     // Refrescamos la tabla
     renderizarReservas();
+}
+
+// Renderizamos lista de vehiculos
+function renderizarVehiculos() {
+    const contenedor = document.getElementById("panel-tabla-contenedor");
+    const contador = document.getElementById("panel-contador");
+    
+    // Leemos de localStorage o de la constante original si está vacío
+    const vehiculos = JSON.parse(localStorage.getItem("bequianrent_autos")) || (typeof VEHICULOS !== 'undefined' ? VEHICULOS : []);
+    contador.textContent = vehiculos.length;
+
+    if (vehiculos.length === 0) {
+        contenedor.innerHTML = `<div class="alert alert-info text-center">No hay vehículos registrados en el sistema.</div>`;
+        return;
+    }
+
+    let html = `
+        <table class="table table-striped table-hover align-middle text-nowrap">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Vehículo</th>
+                    <th>Tipo / Transmisión</th>
+                    <th>Precio x Día</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    vehiculos.forEach(auto => {
+        // Formatear precio a CLP
+        const precioFormateado = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(auto.precio);
+        
+        // Badge dinámico según disponibilidad
+        const badgeEstado = auto.disponible 
+            ? '<span class="badge bg-success">Disponible</span>' 
+            : '<span class="badge bg-danger">Arrendado / Ocupado</span>';
+            
+        // Validar si existe imagen o usar placeholder
+        const imgUrl = auto.imagen || 'img/autos/auto_placeholder.jpg';
+
+        html += `
+            <tr>
+                <td class="fw-bold">#${auto.id}</td>
+                <td>
+                    <img src="${imgUrl}" alt="${auto.marca}" class="rounded border bg-light" style="height: 40px; width: 65px; object-fit: contain; padding: 2px;">
+                </td>
+                <td>
+                    <span class="fw-semibold d-block text-dark">${auto.marca} ${auto.modelo}</span>
+                    <small class="text-muted">Año: ${auto.anio}</small>
+                </td>
+                <td>
+                    <span class="d-block small fw-medium">${auto.tipo}</span>
+                    <small class="text-muted">${auto.transmision || 'N/A'}</small>
+                </td>
+                <td class="fw-bold text-primary">${precioFormateado}</td>
+                <td>${badgeEstado}</td>
+                <td class="text-center">
+                    <button class="btn btn-warning btn-sm fw-semibold text-dark" onclick="editarVehiculo(${auto.id})">
+                        <i class="fa-solid fa-pen-to-square me-1"></i>Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm fw-semibold ms-1" onclick="eliminarVehiculo(${auto.id})">
+                        <i class="fa-solid fa-trash me-1"></i>Eliminar
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+
+    html += `
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end mt-3 pt-2 border-top">
+            <a href="agregar_vehiculo.html" class="btn btn-success fw-semibold shadow-sm px-4">
+                <i class="fa-solid fa-circle-plus me-2"></i>Agregar Nuevo Vehículo
+            </a>
+        </div>
+        
+    `;
+
+    contenedor.innerHTML = html;
+}
+
+// Funcion para editar vehiculos
+function editarVehiculo(idVehiculo) {
+    const listaVehiculos = getVehiculos();
+    const auto = listaVehiculos.find(v => v.id == idVehiculo);
+
+    if (!auto) {
+        alert("Error: Vehículo no encontrado.");
+        return;
+    }
+
+    // Modificar precio mediante prompt
+    const nuevoPrecioStr = prompt(`Modificar precio de arriendo diario para ${auto.marca} ${auto.modelo}:`, auto.precio);
+    if (nuevoPrecioStr === null) return; 
+
+    const nuevoPrecio = parseInt(nuevoPrecioStr);
+    if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) {
+        alert("Por favor, ingrese un monto numérico válido y mayor a $0.");
+        return;
+    }
+
+    // Mooficiar disponibilidad mediante prompt SI O NO
+    const cambiarEstado = confirm(`¿Desea cambiar el estado actual del vehículo?\nEstado Actual: ${auto.disponible ? 'DISPONIBLE' : 'ARRENDADO'}\n\nPresione [Aceptar] para cambiar el estado, o [Cancelar] para mantenerlo.`);
+
+    // Aplicar los cambios al objeto en memoria
+    auto.precio = nuevoPrecio;
+    if (cambiarEstado) {
+        auto.disponible = !auto.disponible;
+    }
+
+    // Guardar datos 
+    saveVehiculos(listaVehiculos);
+    
+    alert(`¡${auto.marca} ${auto.modelo} actualizado correctamente!`);
+    
+    // Refrescar la tabla en tiempo real
+    renderizarVehiculos();
+}
+
+// Funcion para eliminar el vehiculo
+function eliminarVehiculo(idVehiculo) {
+    const listaVehiculos = getVehiculos();
+    
+    // Buscamos el vehiculo por id
+    const autoAEliminar = listaVehiculos.find(v => v.id == idVehiculo);
+
+    if (!autoAEliminar) {
+        alert("Error: No se encontró el vehículo seleccionado.");
+        return;
+    }
+
+    // Confirmación de seguridad en promntp
+    const confirmacion = confirm(`¿Estás completamente seguro de que deseas eliminar el ${autoAEliminar.marca} ${autoAEliminar.modelo} de la flota?\n\nEsta acción no se puede deshacer.`);
+
+    if (confirmacion) {
+        // Filtrar el arreglo para excluir el vehículo
+        const nuevaLista = listaVehiculos.filter(v => v.id != idVehiculo);
+
+        // Guardar la nueva lista en LocalStorage
+        saveVehiculos(nuevaLista);
+
+        // Notificar en prompt y actualizar tabla
+        alert(`El vehículo ${autoAEliminar.marca} ha sido eliminado exitosamente.`);
+        renderizarVehiculos(); 
+    }
 }

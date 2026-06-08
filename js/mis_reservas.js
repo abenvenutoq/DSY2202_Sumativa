@@ -55,7 +55,7 @@ function renderizarMisReservas(usuario) {
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-0 car-card">
                     
-                    <img src="${imagen}" class="card-img-top p-3" alt="${marcaModelo}" style="background-color: #f8f9fa; height: 220px; object-fit: contain;">
+                    <img src="${imagen}" class="card-img-top p-3" alt="${marcaModelo}" style="background-color: #f8f9fa; height: 220px; object-fit: cover;">
                     
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-start mb-3">

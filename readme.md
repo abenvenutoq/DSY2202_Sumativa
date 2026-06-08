@@ -14,6 +14,7 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
 - mis_reservas.html
 - admin_panel.html
 - reservar_auto.html
+- agregar_vehiculo.html (Creado nuevo formulario)
 
 ## Que formularios necesito? 
 
@@ -45,6 +46,16 @@ Proyecto web para rentar vehiculos, visitantes pueden ver vehiculos, ver su disp
     - contraseña (Obligatorio, 1 mayus, 1 simbolo especial, entre 8 y 16 caracteres)
     - repetir contraseña (Obligario e identica a contraseña)
     - dirección (Opcional, distinto de espacio en blanco)
+
+- Agregar vehiculo (Agregado)
+    - marca (obligatorio)
+    - modelo (obligatorio)
+    - año (obligatorio)
+    - tipo (obligatorio)
+    - transmision (obligatorio)
+    - precio (obligatorio)
+    - imagen (Opcional)
+
 
 ## Roles principales
 
