@@ -3,28 +3,28 @@ const APP_SESION = "bequianrent_sesion";
 const APP_RESERVAS = "bequianrent_reservas";
 const APP_AUTOS = "bequianrent_autos";
 
-
-const ADMIN_DEFAULT = {
-    nombre: "Angelo",
-    apellido: "Benvenuto",
-    rut: "15940700-4",
-    correo: "admin@admin.cl",
-    telefono: "963083858",
-    direccion: "Av. Maria Elena 370",
-    password: "qwerty123",
-    rol: "admin"
-}
-
-const USER_DEFAULT = {
-    nombre: "Maria",
-    apellido: "Quilobran",
-    rut: "9843565-4",
-    correo: "cliente@cliente.cl",
-    telefono: "987654321",
-    direccion: "Av. Maria Elena 370",
-    password: "qwerty123",
-    rol: "cliente"
-}
+const USUARIOS = [
+    {
+        nombre: "Angelo",
+        apellido: "Benvenuto",
+        rut: "15940700-4",
+        correo: "admin@admin.cl",
+        telefono: "963083858",
+        direccion: "Av. Maria Elena 370",
+        password: "qwerty123",
+        rol: "admin"
+    },
+    {
+        nombre: "Maria",
+        apellido: "Quilobran",
+        rut: "9843565-4",
+        correo: "cliente@cliente.cl",
+        telefono: "987654321",
+        direccion: "Av. Maria Elena 370",
+        password: "qwerty123",
+        rol: "cliente"
+    }
+]
 
 const RESERVAS = [
     { id: 1, id_vehiculo: 1, correo_cliente: "cliente@cliente.cl", rut_cliente: "9846565-4", fechaDesde: "01-06-2026", fechaHasta: "20-06-2026"},
@@ -57,21 +57,8 @@ const VEHICULOS = [
 function initApp(){
     let usuarios = getUsuario();
 
-    const existeAdmin = usuarios.some(usuario => usuario.correo === ADMIN_DEFAULT.correo);
-    const existeUser = usuarios.some(usuario => usuario.correo === USER_DEFAULT.correo);
-
-    if(!existeAdmin){
-        usuarios.push(ADMIN_DEFAULT);
-        saveUsuarios(usuarios);
-    }
-
-    if(!existeUser){
-        usuarios.push(USER_DEFAULT);
-        saveUsuarios(usuarios);
-    }
-
-    if (!localStorage.getItem(APP_RESERVAS)){
-        localStorage.setItem(APP_RESERVAS, JSON.stringify([]));
+    if(usuarios.length === 0){
+        saveUsuarios(USUARIOS);
     }
 
     let reservas = getReservas();
@@ -83,7 +70,6 @@ function initApp(){
     let vehiculos = getVehiculos();
     
     if(vehiculos.length === 0){
-        // Si no hay autos guardados, guardamos la constante VEHICULOS directamente
         saveVehiculos(VEHICULOS); 
     }
 
@@ -127,7 +113,8 @@ function saveSesion(usuario){
         loged: true,
         nombre: usuario.nombre,
         correo: usuario.correo,
-        rol: usuario.rol
+        rol: usuario.rol,
+        rut: usuario.rut
     };
 
     sessionStorage.setItem(APP_SESION, JSON.stringify(sesion));

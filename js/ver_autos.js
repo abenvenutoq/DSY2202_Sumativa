@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     //Get data desde APP_AUTOS
-    const autosData = JSON.parse(localStorage.getItem(APP_AUTOS)) || [];
+    const autosData = getVehiculos();
 
     // Referencias al DOM
     const contenedorAutos = document.getElementById('contenedor-autos');
@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     //Poblar select del filtro
+
+    // Mapea las marcas de los vehiculos guardados en memoria y elimina los duplicados con SET
     const marcasUnicas = [...new Set(autosData.map(auto => auto.marca))].sort();
     marcasUnicas.forEach(marca => {
         const option = document.createElement('option');
@@ -24,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectMarca.appendChild(option);
     });
 
+    // Mapea los años de los vehiculos guardados en memoria y elimina los duplicados con SET
     const aniosUnicos = [...new Set(autosData.map(auto => auto.anio))].sort((a, b) => b - a);
     aniosUnicos.forEach(anio => {
         const option = document.createElement('option');
@@ -86,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-auto">
                             <span class="fs-5 fw-bold text-primary">$${formatPrecio} / día</span>
-                            <button class="btn btn-outline-primary btn-reservar" data-vehiculo="${auto.marca} ${auto.modelo}" ${disableBtn}>
+                            <button class="btn btn-outline-primary btn-reservar" data-vehiculo="${auto.marca} ${auto.modelo}" ${disableBtn} onclick="window.location.href='reservar_auto.html?id=${auto.id}'">
                                 ${textBtn}
                             </button>
                         </div>

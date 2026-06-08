@@ -46,7 +46,7 @@ function renderizarUsuarios() {
     }
 
     let html = `
-        <table class="table table-striped table-hover align-middle">
+        <table class="table table-striped table-hover align-middle text-nowrap">
             <thead class="table-dark">
                 <tr>
                     <th>RUT</th>
@@ -101,7 +101,7 @@ function renderizarReservas() {
     }
 
     let html = `
-        <table class="table table-striped table-hover align-middle">
+        <table class="table table-striped table-hover align-middle text-nowrap">
             <thead class="table-dark">
                 <tr>
                     <th>ID Reserva</th>

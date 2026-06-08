@@ -44,13 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         <div class="d-flex justify-content-between align-items-center border-top pt-3">
                             <span class="fs-5 fw-bold text-primary">${formatPrecio} / día</span>
-                            <button class="btn btn-outline-primary btn-reservar" data-vehiculo="${auto.marca} ${auto.modelo}">Reservar</button>
+                            <button class="btn btn-outline-primary btn-reservar" data-vehiculo="${auto.marca} ${auto.modelo}" onclick="window.location.href='reservar_auto.html?id=${auto.id}'">Reservar</a></button>
                         </div>
                     </div>
                 </div>
             </div>
             `;
-
             contenedorDestacados.innerHTML += cardHTML;
         });
     }

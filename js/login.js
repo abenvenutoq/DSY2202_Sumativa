@@ -83,7 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (usuarioValido) {
                     const usuarioActual = {
                         nombre: usuarioValido.nombre,
-                        correo: usuarioValido.correo
+                        correo: usuarioValido.correo,
+                        rut: usuarioValido.correo
                     };
 
                     saveSesion(usuarioValido);

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     
-    // 1. Verificamos si hay una sesión activa usando la función de app.js
+    // Verificamos si hay una sesión activa usando la función de app.js
     const sesion = protegerPaginas(["cliente", "admin"]);
 
     // Si no hay sesión, redirigimos al login por seguridad
@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // 2. Traemos todos los usuarios registrados
+    // Traemos todos los usuarios registrados
     const usuarios = getUsuario();
 
-    // 3. Buscamos el registro completo del usuario logueado usando su correo
+    // Buscamos el registro completo del usuario logueado usando su correo
     const datosUsuario = usuarios.find(u => u.correo.toLowerCase() === sesion.correo.toLowerCase());
 
     if (datosUsuario) {
