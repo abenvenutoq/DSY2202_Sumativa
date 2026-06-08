@@ -26,6 +26,13 @@ const USER_DEFAULT = {
     rol: "cliente"
 }
 
+const RESERVAS = [
+    { id: 1, id_vehiculo: 1, correo_cliente: "cliente@cliente.cl", rut_cliente: "9846565-4", fechaDesde: "01-06-2026", fechaHasta: "20-06-2026"},
+    { id: 2, id_vehiculo: 2, correo_cliente: "cliente@cliente.cl", rut_cliente: "9846565-4", fechaDesde: "02-06-2026", fechaHasta: "21-06-2026"},
+    { id: 3, id_vehiculo: 5, correo_cliente: "cliente@cliente.cl", rut_cliente: "9846565-4", fechaDesde: "03-06-2026", fechaHasta: "22-06-2026"},
+    { id: 4, id_vehiculo: 6, correo_cliente: "cliente@cliente.cl", rut_cliente: "9846565-4", fechaDesde: "04-06-2026", fechaHasta: "23-06-2026"},
+];
+
 const VEHICULOS = [
     // --- TOYOTA (4) ---
     { id: 1, marca: "Toyota", modelo: "Corolla", tipo: "Sedán", anio: 2024, precio: 35000, disponible: false, transmision: "Automática", pasajeros: 5, rendimiento: "15 km/l", imagen: "img/autos/toyota_corolla.jpg", descripcion: "Sedán confiable, cómodo y seguro. Ideal para ciudad y viajes largos con excelente rendimiento." },
@@ -65,6 +72,12 @@ function initApp(){
 
     if (!localStorage.getItem(APP_RESERVAS)){
         localStorage.setItem(APP_RESERVAS, JSON.stringify([]));
+    }
+
+    let reservas = getReservas();
+
+    if (reservas.length === 0){
+        saveReservas(RESERVAS);
     }
 
     let vehiculos = getVehiculos();
@@ -139,7 +152,7 @@ function protegerPaginas(rolesPermitidos){
         if(sesion.rol === "admin"){
             window.location.href = "admin_panel.html";
         }else {
-            window.location.href = "mi_perfil.html";
+            window.location.href = "mis_reservas.html";
         }
 
         return null;

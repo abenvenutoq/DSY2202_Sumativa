@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     
     // 1. Verificamos si hay una sesión activa usando la función de app.js
-    const sesion = typeof getSesion === 'function' ? getSesion() : JSON.parse(sessionStorage.getItem("bequianrent_sesion"));
+    const sesion = protegerPaginas(["cliente", "admin"]);
 
     // Si no hay sesión, redirigimos al login por seguridad
     if (!sesion) {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 2. Traemos todos los usuarios registrados
-    const usuarios = typeof getUsuario === 'function' ? getUsuario() : JSON.parse(localStorage.getItem("bequianrent_usuarios")) || [];
+    const usuarios = getUsuario();
 
     // 3. Buscamos el registro completo del usuario logueado usando su correo
     const datosUsuario = usuarios.find(u => u.correo.toLowerCase() === sesion.correo.toLowerCase());
