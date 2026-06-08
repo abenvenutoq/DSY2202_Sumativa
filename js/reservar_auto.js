@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Buscamos el vehículo
     // Si no existiera la constante, intentamos leer desde localStorage
-    const listaVehiculos = typeof VEHICULOS !== 'undefined' ? VEHICULOS : (JSON.parse(localStorage.getItem("bequianrent_autos")) || []);
+    const listaVehiculos = JSON.parse(localStorage.getItem("bequianrent_autos")) || (typeof VEHICULOS !== 'undefined' ? VEHICULOS : []);
     const vehiculoSeleccionado = listaVehiculos.find(auto => auto.id == idVehiculoUrl);
 
     // Si el vehículo no existe o no se pasó un ID válido, redirigir
@@ -94,8 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             total: totalPagar
         };
 
-        //Cambiamos el vehiculos a no disponible
-        
+        // Cambiamos el vehiculos a no disponible
         vehiculoSeleccionado.disponible = false;
         localStorage.setItem("bequianrent_autos", JSON.stringify(listaVehiculos));
 
