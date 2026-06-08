@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    //localStorage.removeItem(APP_AUTOS);
+    // Evento para mostrar de manera aleatoria 3 vehiculos disponibles
 
     if (!localStorage.getItem(APP_AUTOS)) {
         localStorage.setItem(APP_AUTOS, JSON.stringify(VEHICULOS));

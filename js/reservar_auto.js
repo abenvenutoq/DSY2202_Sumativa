@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const reservasExistentes = JSON.parse(localStorage.getItem("bequianrent_reservas")) || [];
         const nuevoId = reservasExistentes.length > 0 ? Math.max(...reservasExistentes.map(r => r.id)) + 1 : 1;
 
-        // CONVERSIÓN DE FECHAS: Pasamos de YYYY-MM-DD (HTML) a DD-MM-YYYY (Tu memoria local)
+        // CONVERSIÓN DE FECHAS: Pasamos de YYYY-MM-DD (HTML) a DD-MM-YYYY
         const fechaDesdeFormateada = convertirFechaAFormatoLocal(fDesde);
         const fechaHastaFormateada = convertirFechaAFormatoLocal(fHasta);
 
@@ -109,9 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-/**
- * Dibuja la tarjeta del vehículo dinámicamente con clases de Bootstrap
- */
+// Renderiza una tarjeta del vehiculo a reservar
 function renderizarDatosVehiculo(auto) {
     const card = document.getElementById("detalle-vehiculo-card");
     const precioCLP = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(auto.precio);
@@ -139,9 +137,7 @@ function renderizarDatosVehiculo(auto) {
     `;
 }
 
-/**
- * Calcula la diferencia de días y el costo acumulado total
- */
+// Calculamos precio total a pegar dependiendo de la cantidad de dias
 function calcularPrecios(desde, hasta, precioPorDia) {
     const resumenDias = document.getElementById("resumen-dias");
     const resumenTotal = document.getElementById("resumen-total");
@@ -157,7 +153,6 @@ function calcularPrecios(desde, hasta, precioPorDia) {
 
     if (fecha2 >= fecha1) {
         const milisegundosPorDia = 24 * 60 * 60 * 1000;
-        // Sumamos +1 para contar el día de retiro como día de uso completo
         const totalDias = Math.round((fecha2 - fecha1) / milisegundosPorDia) + 1; 
         const totalDinero = totalDias * precioPorDia;
 
@@ -169,20 +164,16 @@ function calcularPrecios(desde, hasta, precioPorDia) {
     }
 }
 
-/**
- * Muestra alertas controladas sobre el formulario
- */
+// Mensajes de error
 function mostrarError(mensaje) {
     const alertaError = document.getElementById("reserva-error-alerta");
     alertaError.textContent = mensaje;
     alertaError.classList.remove("d-none");
 }
 
-/**
- * Convierte un String "YYYY-MM-DD" en "DD-MM-YYYY"
- */
+// Convierte fechas a String.
 function convertirFechaAFormatoLocal(fechaHtml) {
     if (!fechaHtml) return "";
-    const partes = fechaHtml.split("-"); // ["2026", "06", "01"]
-    return `${partes[2]}-${partes[1]}-${partes[0]}`; // "01-06-2026"
+    const partes = fechaHtml.split("-"); 
+    return `${partes[2]}-${partes[1]}-${partes[0]}`;
 }

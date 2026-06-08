@@ -257,6 +257,8 @@ function actualizarNavbar(){
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             
                             <li><a class="dropdown-item" href="mi_perfil.html">Mi Perfil</a></li>
+                            <li><a class="dropdown-item" href="mis_reservas.html">Mis Reservas</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="admin_panel.html">Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
@@ -354,7 +356,7 @@ function configurarOjito(idInput, idOjito) {
     ojito.addEventListener("touchend", ocultarPassword);
 }
 
-//Evento al cargar pagina, cargamos datos
+// Evento al cargar pagina, cargamos datos
 document.addEventListener("DOMContentLoaded", function () {
   initApp();
   actualizarNavbar();
