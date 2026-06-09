@@ -123,4 +123,24 @@ document.addEventListener("DOMContentLoaded", function() {
     configurarOjito("password", "ojo-password");
     configurarOjito("confirmPassword", "ojo-confirmPassword");
 
+    const btnLimpiar = document.getElementById("btnLimpiar");
+
+    // Limpiar formulario
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener("click", function () {
+            
+            formRegistro.reset();
+
+            const inputs = formRegistro.querySelectorAll(".form-control");
+            inputs.forEach(input => {
+                input.classList.remove("is-valid", "is-invalid");
+            });
+
+            const mensajesError = formRegistro.querySelectorAll(".invalid-feedback");
+            mensajesError.forEach(mensaje => {
+                mensaje.innerHTML = "";
+            });
+        });
+    }
+
 });
