@@ -133,7 +133,7 @@ function procesarNuevoVehiculo() {
 
     // Empujamos el objeto y guardamos
     listaVehiculos.push(nuevoVehiculo);
-    saveVehiculosy(listaVehiculos);
+    saveVehiculos(listaVehiculos);
 
     alert(`¡Éxito! El ${marca} ${modelo} ha sido integrado a la flota correctamente.`);
     window.location.href = "admin_panel.html";
